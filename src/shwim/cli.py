@@ -49,6 +49,9 @@ def shwim(code, mailbox, read_only):
     Note that the 'guest' user can type and run commands but the host
     can use --read-only if they don't want this.
     """
+    if not shutil.which("tty-share"):
+        print("shwim requires the 'tty-share' program to be installed and on the $PATH")
+        raise Exception("tty-share not found, is it installed?")
     if code is None:
         react(
             lambda r: ensureDeferred(_host(r, mailbox, read_only))
